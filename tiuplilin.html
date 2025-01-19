@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎂 Selamat Ulang Tahun! 🎂</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(45deg, #141e30, #243b55);
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .stars {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 1s infinite alternate;
+      }
+
+      @keyframes twinkle {
+        0% {
+          opacity: 0.2;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      .container {
+        text-align: center;
+        z-index: 1;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-out;
+        max-width: 90%;
+        width: 600px;
+      }
+
+      h1 {
+        color: #fff;
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(2em, 5vw, 3.5em);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        margin-bottom: 40px;
+        animation: slideDown 1s ease-out;
+      }
+
+      .cake {
+        position: relative;
+        width: 300px;
+        height: 250px;
+        margin: 0 auto 30px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .layer {
+        position: absolute;
+        width: 100%;
+        background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+      }
+
+      .layer:hover {
+        transform: scale(1.02);
+      }
+
+      .layer-1 {
+        height: 80px;
+        bottom: 0;
+        animation: slideRight 1s ease-out;
+      }
+
+      .layer-2 {
+        height: 60px;
+        bottom: 80px;
+        width: 90%;
+        left: 5%;
+        animation: slideLeft 1.2s ease-out;
+      }
+
+      .layer-3 {
+        height: 40px;
+        bottom: 140px;
+        width: 80%;
+        left: 10%;
+        animation: slideRight 1.4s ease-out;
+      }
+
+      .candle {
+        position: absolute;
+        width: 12px;
+        height: 60px;
+        background: linear-gradient(white, #f0f0f0);
+        bottom: 180px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 6px;
+        animation: appear 1.6s ease-out;
+      }
+
+      .flame {
+        position: absolute;
+        width: 24px;
+        height: 36px;
+        background: linear-gradient(#ffeb3b, #ff9800);
+        border-radius: 50% 50% 20% 20%;
+        bottom: 240px;
+        left: 50%;
+        transform: translateX(-50%);
+        transform-origin: bottom;
+        animation: flicker 0.6s infinite alternate;
+        box-shadow: 0 0 20px #ff9800, 0 0 40px #ff9800, 0 0 60px #ff9800;
+      }
+
+      @keyframes flicker {
+        0% {
+          transform: translateX(-50%) scale(1) rotate(-2deg);
+        }
+        50% {
+          transform: translateX(-50%) scale(1.1) rotate(2deg);
+        }
+        100% {
+          transform: translateX(-50%) scale(1) rotate(-1deg);
+        }
+      }
+
+      #startButton {
+        margin-top: 30px;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        background: linear-gradient(45deg, #ff6b6b, #ff8787);
+        border: none;
+        color: white;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        letter-spacing: 1px;
+        animation: pulse 2s infinite;
+        text-transform: uppercase;
+      }
+
+      #startButton:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+        }
+      }
+
+      #instructions {
+        color: #fff;
+        margin-top: 25px;
+        font-size: 1.3em;
+        opacity: 0;
+        font-weight: 400;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+        visibility: hidden;
+      }
+
+      #instructions.show {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+        animation: bounce 1s ease;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-20px);
+        }
+        60% {
+          transform: translateY(-10px);
+        }
+      }
+
+      #volumeMeter {
+        width: 250px;
+        height: 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        margin: 25px auto 0;
+        overflow: hidden;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        transform: scale(0.95);
+      }
+
+      #volumeMeter.show {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      #volumeBar {
+        width: 0%;
+        height: 100%;
+        background: linear-gradient(90deg, #ff6b6b, #ff8787);
+        transition: width 0.1s ease;
+        border-radius: 50px;
+      }
+
+      .confetti {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        background: #f00;
+        opacity: 0;
+      }
+
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideRight {
+        from {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideLeft {
+        from {
+          transform: translateX(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes appear {
+        from {
+          transform: translateX(-50%) scale(0);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1.5rem;
+          margin: 1rem;
+        }
+
+        .cake {
+          width: 250px;
+          height: 200px;
+        }
+
+        #startButton {
+          font-size: 1em;
+          padding: 12px 24px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 2em;
+        }
+
+        .cake {
+          width: 200px;
+          height: 160px;
+        }
+
+        #volumeMeter {
+          width: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars" class="stars"></div>
+    <div class="container">
+      <h1>✨ Happy Birthday ✨</h1>
+      <div class="cake">
+        <div class="flame" id="flame"></div>
+        <div class="candle"></div>
+        <div class="layer layer-3"></div>
+        <div class="layer layer-2"></div>
+        <div class="layer layer-1"></div>
+      </div>
+      <button id="startButton">KLIK DLU KALO MAU TIUP LILIN 🎂</button>
+      <div id="instructions">Tiup lilinnya! 🌬️</div>
+      <div id="volumeMeter">
+        <div id="volumeBar"></div>
+      </div>
+    </div>
+
+    <script>
+      function navigateToNextPage() {
+        window.location.href = "flower/index.html"; // Ganti dengan halaman yang ingin dituju
+      }
+      // Create stars background
+      function createStars() {
+        const starsContainer = document.getElementById("stars");
+        for (let i = 0; i < 100; i++) {
+          const star = document.createElement("div");
+          star.className = "star";
+          star.style.width = Math.random() * 3 + "px";
+          star.style.height = star.style.width;
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.animationDelay = Math.random() * 1 + "s";
+          starsContainer.appendChild(star);
+        }
+      }
+
+      // Initialize variables
+      let audioContext;
+      let analyser;
+      let isListening = false;
+      const flameDom = document.getElementById("flame");
+      const startButton = document.getElementById("startButton");
+      const volumeBar = document.getElementById("volumeBar");
+      const instructions = document.getElementById("instructions");
+      const volumeMeter = document.getElementById("volumeMeter");
+
+      // Create confetti effect
+      function createConfetti() {
+        for (let i = 0; i < 150; i++) {
+          const confetti = document.createElement("div");
+          confetti.className = "confetti";
+          confetti.style.left = Math.random() * window.innerWidth + "px";
+          confetti.style.top = Math.random() * window.innerHeight + "px";
+          confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+          document.body.appendChild(confetti);
+
+          const animation = confetti.animate(
+            [
+              {
+                transform: "translate(0, 0) rotate(0deg)",
+                opacity: 1,
+              },
+              {
+                transform: `translate(${Math.random() * 500 - 250}px, ${
+                  Math.random() * 500 - 150
+                }px) rotate(${Math.random() * 720}deg)`,
+                opacity: 0,
+              },
+            ],
+            {
+              duration: 2000 + Math.random() * 1000,
+              easing: "cubic-bezier(.25,.46,.45,.94)",
+            }
+          );
+
+          animation.onfinish = () => {
+            confetti.remove();
+
+            // Tambahkan kondisi ini di animasi terakhir
+            if (i === 149) {
+              // Tunggu sebentar setelah konfeti selesai
+              setTimeout(navigateToNextPage, 1500);
+            }
+          };
+        }
+      }
+
+      // Start button click handler
+      startButton.addEventListener("click", async () => {
+        try {
+          audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+          analyser = audioContext.createAnalyser();
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          const source = audioContext.createMediaStreamSource(stream);
+          source.connect(analyser);
+
+          analyser.fftSize = 256;
+          const bufferLength = analyser.frequencyBinCount;
+          const dataArray = new Uint8Array(bufferLength);
+
+          isListening = true;
+          startButton.style.display = "none";
+
+          // Show instructions and volume meter with animation
+          setTimeout(() => {
+            instructions.classList.add("show");
+            volumeMeter.classList.add("show");
+          }, 300);
+
+          function checkAudio() {
+            if (!isListening) return;
+
+            analyser.getByteFrequencyData(dataArray);
+            const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+            volumeBar.style.width = `${average}%`;
+
+            if (average > 50 && flameDom.style.display !== "none") {
+              flameDom.style.display = "none";
+              createConfetti();
+              instructions.textContent = "🎉 Selamat ulang tahun! 🎊";
+              instructions.style.fontSize = "1.5em";
+              volumeMeter.style.display = "none";
+              isListening = false;
+              return;
+            }
+
+            requestAnimationFrame(checkAudio);
+          }
+
+          checkAudio();
+        } catch (err) {
+          console.error("Error:", err);
+          alert(
+            "Maaf, tidak dapat mengakses mikrofon. Pastikan memberikan izin akses mikrofon dan gunakan browser yang mendukung."
+          );
+        }
+      });
+
+      // Initialize stars on load
+      createStars();
+    </script>
+  </body>
+</html>

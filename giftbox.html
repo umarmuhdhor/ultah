@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Gift for You ❤️</title>
+    <style>
+        :root {
+            --primary-color: #ff69b4;
+            --secondary-color: #ff1493;
+            --background-dark: #000428;
+            --background-light: #004e92;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--background-dark), var(--background-light));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            perspective: 1000px;
+            overflow: hidden;
+        }
+
+        .gift-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: all 1s ease;
+        }
+
+        .gift-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 10px solid var(--primary-color);
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            transition: all 1s ease;
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .gift-box::before {
+            content: '🎁';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) translateZ(50px);
+            font-size: 100px;
+            transition: all 1s ease;
+        }
+
+        .gift-lid {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            top: -25%;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            transform-origin: bottom;
+            transition: all 1s ease;
+            border-radius: 20px 20px 0 0;
+            border: 10px solid var(--primary-color);
+            border-bottom: none;
+        }
+
+        .gift-wrapper.opened .gift-lid {
+            transform: rotateX(-170deg);
+        }
+
+        .gift-wrapper.opened .gift-box::before {
+            transform: translate(-50%, -50%) translateZ(150px) scale(0);
+            opacity: 0;
+        }
+
+        .gift-wrapper.opened .gift-content {
+            transform: translateZ(100px) scale(1);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .gift-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 280px;
+            height: 280px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            transform: translate(-50%, -50%) translateZ(100px) scale(0);
+            opacity: 0;
+            transition: all 1s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            pointer-events: none;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        .gift-content h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .gift-content p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .enter-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .enter-button:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        /* Background Hearts */
+        .background-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255,105,180,0.5);
+            font-size: 20px;
+            animation: fall 10s linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100%) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-hearts"></div>
+    <div class="gift-wrapper" onclick="openGift()">
+        <div class="gift-box"></div>
+        <div class="gift-lid"></div>
+        <div class="gift-content">
+            <h2>Happy Birthday, My Love!</h2>
+            <p>A special journey of memories awaits you. Click to enter our story...</p>
+            <button class="enter-button" onclick="enterStory(event)">Open Story</button>
+        </div>
+    </div>
+
+    <script>
+        function createHearts() {
+            const container = document.querySelector('.background-hearts');
+            const heartCount = 50;
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                
+                // Random positioning
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 10}s`;
+                heart.style.fontSize = `${10 + Math.random() * 30}px`;
+                
+                container.appendChild(heart);
+            }
+        }
+
+        function openGift() {
+            document.querySelector('.gift-wrapper').classList.add('opened');
+        }
+
+        function enterStory(event) {
+            event.stopPropagation();
+            window.location.href = 'story.html';
+        }
+
+        // Initialize
+        window.onload = createHearts;
+    </script>
+
+</body>
+</html>
